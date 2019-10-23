@@ -3,21 +3,19 @@ clear all;
 figure;
 img = imread("Q3_Input", "tif");
 img = double(img);
-subplot(1,3,1);
-imshow(img, []);
 [M, N] = size(img);
 
 filter = averageFilter(img, M, N);
-subplot(1,3,2);
 imshow(filter, []);
 
-subplot(1,3,3);
-
+%threshold is %35 percent
 threshold = 255 * 35 / 100;
 binaryImg = thresholding(filter, threshold, M, N);
-subplot(1,3,3);
 imshow(binaryImg, []);
 
+%{ 
+    this function uses 3 by 3 area to average the pixels.
+%}
 
 function img = averageFilter(image, M, N)
     newImg = zeros(M, N);
@@ -34,6 +32,11 @@ function img = averageFilter(image, M, N)
     end
     img = newImg;
 end
+
+%{ 
+    This function converts blurred image to binary image according to
+    threshold that provided.
+%}
 
 function thresh = thresholding(image, rate, dimX, dimY)
     binary=zeros(dimX, dimY);
